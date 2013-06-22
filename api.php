@@ -3,12 +3,12 @@
 /*
  * What is the JSON file that's to be the source of this API's data?
  */
-define('JSON_FILE', '');
+define('JSON_FILE', 'decisions.json');
 
 /*
  * What is the name of the field that will be queried via the API? That is, what is the unique ID?
  */
-define('INDEXED_FIELD', '');
+define('INDEXED_FIELD', 'case_number');
 
 /*
  * What type of caching should be used? Valid options are: "false" (a literal, boolean FALSE) to
@@ -21,7 +21,7 @@ define('CACHE_TYPE', 'json');
 /*
  * In what directory should cached material be stored?
  */
-define('CACHE_DIRECTORY', 'cache/');
+define('CACHE_DIRECTORY', 'decisions/');
 
 /*
  * Include the Instant API library.
@@ -52,7 +52,7 @@ $server = new InstantAPI();
  */
 if (!isset($server->data->{$server->id}))
 {
-	json_error('ID not found.', '404 Not Found');
+	json_error('Case not found.', '404 Not Found');
 	die();
 }
 
