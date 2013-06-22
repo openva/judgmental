@@ -9,13 +9,16 @@ A description of the fields within the JSON file for each case.
 Saint Paul Holmes v. John Doe
 
 ### Field Name
-`name`
+name
 
 ### Data Type
 string
 
 ### Required
 yes
+
+### Notes
+This will generally just be the names of the two parties, but not always.
 
 
 ## Case Number
@@ -32,6 +35,7 @@ string
 ### Required
 
 ### Notes
+The format of this varies enormously between courts.
 
 
 ## Date Published
@@ -49,6 +53,7 @@ date
 yes
 
 ### Notes
+Sometimes there are multiple dates, such as when a case is revised. Noah is evaluating. Other fields include the date that the decision was published in a law journal (with no other date provided), the date that a decision was revised, 
 
 
 ## Court Name
