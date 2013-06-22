@@ -24,6 +24,7 @@ yes
 ### Field Name
 
 ### Data Type
+string
 
 ### Required
 
@@ -38,6 +39,7 @@ yes
 ### Field Name
 
 ### Data Type
+date
 
 ### Required
 
@@ -49,10 +51,10 @@ yes
 ### Example
 
 ### Field Name
-
-`court`
+court
 
 ### Data Type
+string
 
 ### Required
 
@@ -60,27 +62,29 @@ yes
 
 
 ## Court Location
-`court_location`
 
 ### Example
 
 ### Field Name
+court_location
 
 ### Data Type
+string
 
 ### Required
 
 ### Notes
 
 
-## Result
-`result (?)`
+## Outcome
 
 ### Example
 
 ### Field Name
+outcome
 
 ### Data Type
+unknown
 
 ### Required
 
@@ -88,13 +92,14 @@ yes
 
 
 ## Parties
-`parties { }`
 
 ### Example
 
 ### Field Name
+parties
 
 ### Data Type
+array
 
 ### Required
 
@@ -102,13 +107,14 @@ yes
 
 
 ## Judges
-`judges { }`
 
 ### Example
 
 ### Field Name
+judges
 
 ### Data Type
+array
 
 ### Required
 
@@ -116,13 +122,14 @@ yes
 
 
 ## Attorneys
-`attorneys { }`
 
 ### Example
 
 ### Field Name
+attorneys
 
 ### Data Type
+array
 
 ### Required
 
@@ -130,13 +137,15 @@ yes
 
 
 ## Type of Case
-`type [civil| criminal]`
 
 ### Example
+civil
 
 ### Field Name
+type
 
 ### Data Type
+enum: `civil` or `criminal`
 
 ### Required
 
@@ -144,13 +153,14 @@ yes
 
 
 ## Cited Laws
-`cited laws { citation # }`
 
 ### Example
 
 ### Field Name
+cited laws
 
 ### Data Type
+{ citation # }
 
 ### Required
 
@@ -158,13 +168,14 @@ yes
 
 
 ## Cited Cases
-`cited cases { case # }`
 
 ### Example
 
 ### Field Name
+cited cases
 
 ### Data Type
+{ case # }
 
 ### Required
 
@@ -172,13 +183,14 @@ yes
 
 
 ## Decision Text
-`text { format, URL }`
 
 ### Example
 
 ### Field Name
+text
 
 ### Data Type
+array { format, URL }
 
 ### Required
 
