@@ -6,6 +6,7 @@ A description of the fields within the JSON file for each case.
 ## Case Name
 
 ### Example
+Saint Paul Holmes v. John Doe
 
 ### Field Name
 `name`
@@ -16,12 +17,14 @@ string
 ### Required
 yes
 
+
 ## Case Number
-`number`
 
 ### Example
+981428
 
 ### Field Name
+number
 
 ### Data Type
 string
@@ -32,11 +35,12 @@ string
 
 
 ## Date Published
-`published`
 
 ### Example
+1999-04-16
 
 ### Field Name
+published
 
 ### Data Type
 date
@@ -50,6 +54,7 @@ yes
 ## Court Name
 
 ### Example
+Supreme Court of Virginia
 
 ### Field Name
 court
@@ -82,6 +87,7 @@ no
 ## Outcome
 
 ### Example
+Affirmed
 
 ### Field Name
 outcome
@@ -98,12 +104,13 @@ no
 ## Parties
 
 ### Example
+array("plaintiff" => "Saint Paul Holmes", "defendant" => "John Doe")
 
 ### Field Name
 parties
 
 ### Data Type
-array
+indexed array
 
 ### Required
 yes
@@ -114,6 +121,7 @@ yes
 ## Judges
 
 ### Example
+array("Charles L. McCormick, III")
 
 ### Field Name
 judges
@@ -130,17 +138,19 @@ no
 ## Attorneys
 
 ### Example
+array("plaintiff" => "Lionel Hutz, Esq.", "defendant" => "Miguel Sanchez")
 
 ### Field Name
 attorneys
 
 ### Data Type
-array
+indexed array
 
 ### Required
 no
 
 ### Notes
+Noah is evaluating the viability of IDing the party whom each attorney represents.
 
 
 ## Type of Case
@@ -163,6 +173,7 @@ yes
 ## Cited Laws
 
 ### Example
+array("38.2-2206", "46.2-1043", "8.01-401.3")
 
 ### Field Name
 cited laws
