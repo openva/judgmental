@@ -42,6 +42,7 @@ string
 date
 
 ### Required
+yes
 
 ### Notes
 
@@ -57,6 +58,7 @@ court
 string
 
 ### Required
+yes
 
 ### Notes
 
@@ -72,6 +74,7 @@ court_location
 string
 
 ### Required
+no
 
 ### Notes
 
@@ -87,6 +90,7 @@ outcome
 unknown
 
 ### Required
+no
 
 ### Notes
 
@@ -102,6 +106,7 @@ parties
 array
 
 ### Required
+yes
 
 ### Notes
 
@@ -117,6 +122,7 @@ judges
 array
 
 ### Required
+no
 
 ### Notes
 
@@ -132,6 +138,7 @@ attorneys
 array
 
 ### Required
+no
 
 ### Notes
 
@@ -148,6 +155,7 @@ type
 enum: `civil` or `criminal`
 
 ### Required
+yes
 
 ### Notes
 
@@ -163,6 +171,7 @@ cited laws
 { citation # }
 
 ### Required
+no
 
 ### Notes
 
@@ -178,6 +187,7 @@ cited cases
 { case # }
 
 ### Required
+no
 
 ### Notes
 
@@ -193,5 +203,6 @@ text
 array { format, URL }
 
 ### Required
+yes
 
 ### Notes
