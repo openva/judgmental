@@ -3,20 +3,20 @@
 A description of the fields within the JSON file for each case.
 
 ## TOC
-[Case Name](#case-name)
-[Case Number](#case-number)
-[Date Published](#date-published)
-[Court Name](#court-name)
-[Court Location](#court-location)
-[Author](#author)
-[Outcome](#outcome)
-[Parties](#parties)
-[Judges](#judges)
-[Attorneys](#attorneys)
-[Type of Case](#type-of-case)
-[Cited Laws](#cited-laws)
-[Cited Cases](#cited-cases)
-[Decision Text](#decision-text)
+* [Case Name](#case-name)
+* [Case Number](#case-number)
+* [Date Published](#date-published)
+* [Court Name](#court-name)
+* [Court Location](#court-location)
+* [Author](#author)
+* [Outcome](#outcome)
+* [Parties](#parties)
+* [Judges](#judges)
+* [Attorneys](#attorneys)
+* [Type of Case](#type-of-case)
+* [Cited Laws](#cited-laws)
+* [Cited Cases](#cited-cases)
+* [Decision Text](#decision-text)
 
 
 ## Case Name
