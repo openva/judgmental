@@ -219,6 +219,8 @@ no
 ### Notes
 Noah is evaluating the viability of IDing the party whom each attorney represents.
 
+Might these actually be nested arrays? Often there will be more than one attorney for a party. Do we want to represent each one of those attorney as their own element in an array, or just make it one long string for each party?
+
 
 ## Type of Case
 
