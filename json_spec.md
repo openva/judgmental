@@ -6,6 +6,7 @@ A description of the fields within the JSON file for each case.
 * [Case Name](#case-name)
 * [Case Number](#case-number)
 * [Date Published](#date-published)
+* [Is Published?](#is-published)
 * [Court Name](#court-name)
 * [Court Location](#court-location)
 * [Author](#author)
@@ -61,7 +62,7 @@ The format of this varies enormously between courts.
 1999-04-16
 
 ### Field Name
-published
+date_published
 
 ### Data Type
 date
@@ -70,7 +71,25 @@ date
 yes
 
 ### Notes
-Sometimes there are multiple dates, such as when a case is revised. Noah is evaluating. Other fields include the date that the decision was published in a law journal (with no other date provided), the date that a decision was revised, 
+Sometimes there are multiple dates, such as when a case is revised. Noah is evaluating. Other fields include the date that the decision was published in a law journal (with no other date provided) and the date that a decision was revised.
+
+
+## Is Published?
+
+### Example
+true
+
+### Field Name
+is_published
+
+### Data Type
+boolean
+
+### Required
+yes
+
+### Notes
+There are two kinds of decisions: "published" and "unpublished." The term doesn't refer to whether the decisions are written and appear online, but instead whether they are to be considered as a source of precedent or not. The default state of an decision is published, but it is important to be able to store if an opinion is unpublished.
 
 
 ## Court Name
