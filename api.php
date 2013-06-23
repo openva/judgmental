@@ -26,7 +26,7 @@ define('CACHE_DIRECTORY', 'opinions/');
 /*
  * Include the Instant API library.
  */
-include('class.InstantAPI.php');
+include('class.InstantAPI.inc.php');
 
 /*
  * All output will be as JSON.
