@@ -30,6 +30,9 @@ echo '	<table>
 		</thead>
 		<tbody>';
 
+/*
+ * Iterate through the opinions and display each one.
+ */
 foreach ($opinions as $opinion)
 {
 	
