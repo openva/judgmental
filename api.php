@@ -8,7 +8,7 @@ define('JSON_FILE', 'decisions.json');
 /*
  * What is the name of the field that will be queried via the API? That is, what is the unique ID?
  */
-define('INDEXED_FIELD', 'case_number');
+define('INDEXED_FIELD', 'number');
 
 /*
  * What type of caching should be used? Valid options are: "false" (a literal, boolean FALSE) to
