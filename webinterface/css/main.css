@@ -98,8 +98,8 @@ textarea {
 }
 
 #header {
-    background:#A69076;
-    padding:10px;
+    background:#e5ddce;
+    padding:20px;
 }
 
 #logo {
@@ -118,6 +118,7 @@ textarea {
     float:left;
     width:100%;
     margin:30px 0;
+    font-size:1.2em;
 }
 
 .searchlabel,

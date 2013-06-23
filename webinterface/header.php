@@ -55,7 +55,7 @@
         <![endif]-->
         <div id="header">
             <a href="/"><div id="logo">
-                <img src="logo.png" height='100px'/>
+                <img src="logo.png" height='80px'/>
                 JudgMental
             </div></a>
         </div>
