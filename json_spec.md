@@ -147,7 +147,10 @@ It's not yet clear what this is going to look like. Noah should have some ideas 
 ## Parties
 
 ### Example
-array("plaintiff" => "Saint Paul Holmes", "defendant" => "John Doe")
+```
+array(	"plaintiff" => "Saint Paul Holmes",
+		"defendant" => "John Doe")
+```
 
 ### Field Name
 parties
@@ -180,7 +183,10 @@ no
 ## Attorneys
 
 ### Example
-array("plaintiff" => "Lionel Hutz, Esq.", "defendant" => "Miguel Sanchez")
+```
+array(	"plaintiff" => "Lionel Hutz, Esq.",
+		"defendant" => "Miguel Sanchez")
+```
 
 ### Field Name
 attorneys
@@ -213,7 +219,12 @@ yes
 ## Cited Laws
 
 ### Example
-array("38.2-2206", "46.2-1043", "8.01-401.3")
+```
+array(
+		"38.2-2206",
+		"46.2-1043",
+		"8.01-401.3")
+```
 
 ### Field Name
 cited laws
@@ -249,10 +260,10 @@ Some cases are cited repeatedly. See [Cited Laws](#cited-laws) for the ramificat
 ## Decision Text
 
 ### Example
-array(
-	'format' => 'pdf', url => 'http://www.courts.state.va.us/opinions/opnscvwp/1981428.pdf',
-	'format' => 'txt', url => '/rulings/1981428.txt'
-)
+```
+array(	'format' => 'pdf', url => 'http://www.courts.state.va.us/opinions/opnscvwp/1981428.pdf',
+		'format' => 'txt', url => '/rulings/1981428.txt')
+```
 
 ### Field Name
 text
