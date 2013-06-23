@@ -1,6 +1,6 @@
 <?php
 
-$opinion_number = filter_input(INPUT_GET, 'opinion', FILTER_SANITIZE_SPECIAL_CHARS);
+$opinion_number = filter_input(INPUT_GET, 'number', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (!isset($opinion_number))
 {
