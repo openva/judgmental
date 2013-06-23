@@ -199,6 +199,21 @@ array
 no
 
 
+## Summary
+
+### Example
+In a jury trial of an automobile accident liability claim, the trial court properly permitted the introduction of expert testimony concerning the relationship between tire tread depth and hydroplaning by a motor vehicle. The judgment is affirmed.
+
+### Field Name
+summary
+
+### Data Type
+string
+
+### Required
+no
+
+
 ## Attorneys
 
 ### Example
