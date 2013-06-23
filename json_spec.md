@@ -245,7 +245,7 @@ array(	"38.2-2206",
 ```
 
 ### Field Name
-cited laws
+cited_laws
 
 ### Data Type
 array
