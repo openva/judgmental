@@ -10,7 +10,7 @@ if (!isset($opinion_number))
 /*
  * Retrieve the requested opinion from its JSON file.
  */
-$json = file_get_contents('/opinion/' . $opinion_number . '.json');
+$json = file_get_contents('opinions/' . $opinion_number . '.json');
 
 if ($json === FALSE)
 {
