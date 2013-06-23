@@ -8,7 +8,7 @@ Provided with a list of URLs of PDF-based court opinions, this extracts text fro
 
 ## Credits
 
-Created by Chase Davis, John Emhoff, Waldo Jaquith, Joanna Kao, Dhanraj Konduru, Matt McDonald, Max Ogden, and Noah Veltman.
+Created by Mariano Blejman, Chase Davis, John Emhoff, Waldo Jaquith, Joanna Kao, Dhanraj Konduru, Matt McDonald, Max Ogden, and Noah Veltman.
 
 ## License
 
