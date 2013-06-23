@@ -20,7 +20,7 @@ if ($opinions === FALSE)
 	die('Opinion JSON is corrupt.');
 }
 
-echo '	<table>
+echo '	<table id="resultsTable" class="tablesorter">
 		<thead>
 			<tr>
 				<th>Case</a></th>
