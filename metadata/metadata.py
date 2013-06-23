@@ -1,25 +1,34 @@
 # -*- coding: utf-8 -*-
 
-import os, re
+import os, re, time
 import networkx as nx
 import numpy as np
 from nltk.tokenize import word_tokenize
 from nltk.tokenize.punkt import PunktSentenceTokenizer
 from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 
+# Elasticsearch endpoint: http://yqoffbyc.api.qbox.io
+
 ########## BASE CLASSES ##########
 
-class BaseMetaGetter(object):
-    '''
-    A base metadata gathering class that can be extended on a state-by-state basis.
-    Extend and implement new classes for each state (see Virgina below).
-    '''
+class Decision(object):
 
-    def __init__(self, document):
+    def __init__(self, text):
         '''
-        Requires an input document (represented as plain text).
+        Initializes with text from a document.
         '''
-        self.doc = self._clean(document)
+        self.doc = text
+        self.caseno = self._set_case_num()
+        self.date = self._set_case_date()
+        self.parties = None
+
+    ########## PRIVATE ##########
+
+    def _get_header(self):
+        '''
+        Gets the header section of a decision, which contains metadata.
+        '''
+        raise NotImplementedError
 
     def _clean(self, str):
         '''
@@ -32,6 +41,29 @@ class BaseMetaGetter(object):
         '''
         return ' '.join(word_tokenize(str)).decode('utf-8', errors='ignore')
 
+    def _set_case_num(self):
+        '''
+        Sets a case number from the text. Will be different for every state.
+        '''
+        return None
+
+    def _set_case_date(self):
+        '''
+        Returns the date of the case. Will be different for every state.
+        '''
+        return None
+
+    def _set_case_parties(self):
+        '''
+        Sets parties involved. Will be different for every state.
+        '''
+        return None
+
+    ########## PUBLIC ###########
+
+    def as_json(self):
+        raise NotImplementedError
+
     def get_key_sentences(self, n=5):
         '''
         Uses a simple implementation of TextRank to extract the top N sentences
@@ -42,12 +74,15 @@ class BaseMetaGetter(object):
         - Super useful blog post: http://joshbohde.com/blog/document-summarization
         - Wikipedia: http://en.wikipedia.org/wiki/Automatic_summarization#Unsupervised_keyphrase_extraction:_TextRank
         '''
+        # Tokenize the document into sentences. More NLP preprocesing should also happen here. 
         sentence_tokenizer = PunktSentenceTokenizer()
         sentences = sentence_tokenizer.tokenize(self.doc)
 
+        # Calculate word counts and TFIDF vectors
         word_counts = CountVectorizer(min_df=0).fit_transform(sentences)
         normalized = TfidfTransformer().fit_transform(word_counts) 
 
+        # Normalized graph * its transpose yields a sentence-level similarity matrix
         similarity_graph = normalized * normalized.T
      
         nx_graph = nx.from_scipy_sparse_matrix(similarity_graph)
@@ -55,33 +90,15 @@ class BaseMetaGetter(object):
         return sorted(((scores[i],s) for i,s in enumerate(sentences)),
                       reverse=True)[n]
 
-    def get_case_num(self):
-        '''
-        Returns a case number from the text. Will be different for every state.
-        '''
-        raise NotImplementedError
-
-    def get_date(self):
-        '''
-        Returns the date of the case. Will be different for every state.
-        '''
-        raise NotImplementedError
-
-    def get_parties(self):
-        '''
-        Returns parties involved. Will be different for every state.
-        '''
-        raise NotImplementedError
-
 
 ########## STATE-SPECIFIC CLASSES ##########
 
-class VAMetaGetter(BaseMetaGetter):
+class VirginiaDecision(Decision):
     '''
     Virgina-specific implementation of the MetaGetter.
     '''
 
-    def get_case_num(self):
+    def _set_case_num(self):
         '''
         Grabs case numbers from VA cases. Needs MAJOR refinement!
 
@@ -89,4 +106,24 @@ class VAMetaGetter(BaseMetaGetter):
         - Only attempt to detect record number from first page
         - Edge case handling and match testing
         '''
-        return re.findall('Record No. (\w+)', self.doc[:1000])
+        return re.findall('Record No. (\w+)', self.doc[:200])
+
+    def _set_case_date(self):
+        '''
+        Grabs dates from VA cases. Needs MAJOR refinement!
+        '''
+        datestr = re.findall('\w+ \d+, \d{4}', self.doc[:200])[0]
+        return time.strptime(datestr, '%B %d, %Y')
+
+    def _get_parties(self):
+        # Doh, doesn't work yet
+        pass
+
+
+
+if __name__ == '__main__':
+    infile = open('sample.txt', 'r').read()
+    d = VirginiaDecision(infile)
+
+    print d.date
+
