@@ -33,6 +33,7 @@ number
 string
 
 ### Required
+yes
 
 ### Notes
 The format of this varies enormously between courts.
@@ -76,6 +77,7 @@ yes
 ## Court Location
 
 ### Example
+Richmond
 
 ### Field Name
 court_location
@@ -87,6 +89,7 @@ string
 no
 
 ### Notes
+While this is unstructured text, it ought to be a placename, and may be geocodable.
 
 
 ## Outcome
@@ -104,6 +107,7 @@ unknown
 no
 
 ### Notes
+It's not yet clear what this is going to look like. Noah should have some ideas about this.
 
 
 ## Parties
@@ -121,6 +125,7 @@ indexed array
 yes
 
 ### Notes
+Given the nature of appeals (the role of the parties depends on who appeals, so it can reverse along the way), is there even value in storing whether somebody is the plaintiff or the defendant?
 
 
 ## Judges
@@ -138,6 +143,7 @@ array
 no
 
 ### Notes
+We need to store the names of the judges who heard the case, and we need to store the name of the author of the opinions? Should we turn this into an indexed array, in which we identify the judge who is the author? Or should we store the author's identity in a different field? Is it possible for the author of a decision to be somebody other than one of the judges who heard or ruled on the case?
 
 
 ## Attorneys
@@ -172,8 +178,6 @@ enum: `civil` or `criminal`
 ### Required
 yes
 
-### Notes
-
 
 ## Cited Laws
 
@@ -190,35 +194,43 @@ cited laws
 no
 
 ### Notes
+Some laws are cited repeatedly. Do we want to store a representation of the unique laws that were cited, or do we want to store a representation of all citations? That is, are we telling people that §&nbsp;38.2-2206 was cited 3 times, or just that it was cited at *all*?
 
 
 ## Cited Cases
 
 ### Example
+unclear—working on this
 
 ### Field Name
 cited cases
 
 ### Data Type
-{ case # }
+indexed array
 
 ### Required
 no
 
 ### Notes
+Some cases are cited repeatedly. See [Cited Laws](#Cited%20Laws) for the ramifications of this.
 
 
 ## Decision Text
 
 ### Example
+array(
+	'format' => 'pdf', url => 'http://www.courts.state.va.us/opinions/opnscvwp/1981428.pdf',
+	'format' => 'txt', url => '/rulings/1981428.txt'
+)
 
 ### Field Name
 text
 
 ### Data Type
-array { format, URL }
+array
 
 ### Required
 yes
 
 ### Notes
+This does not store the actual text, but just a link the text in its various formats.
