@@ -30,7 +30,7 @@ if ($opinion === FALSE)
 /*
  * Gather the text of the ruling and include that in our object.
  */
-$opinion->text->contents = file_get_contents($opinion->text->url);
+$opinion->text->contents = file_get_contents($opinion->text);
 
 echo '<h1>' . $opinion->name . '</h1>';
 echo '<h2>' . date('F j, Y', strtotime($opinion->date_published)) . ', Case Number ' . $opinion->number . '</h2>';
