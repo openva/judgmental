@@ -3,7 +3,7 @@
 /*
  * What is the JSON file that's to be the source of this API's data?
  */
-define('JSON_FILE', 'decisions.json');
+define('JSON_FILE', 'opinions.json');
 
 /*
  * What is the name of the field that will be queried via the API? That is, what is the unique ID?
@@ -21,7 +21,7 @@ define('CACHE_TYPE', 'json');
 /*
  * In what directory should cached material be stored?
  */
-define('CACHE_DIRECTORY', 'decisions/');
+define('CACHE_DIRECTORY', 'opinions/');
 
 /*
  * Include the Instant API library.
