@@ -230,7 +230,7 @@ array(
 cited laws
 
 ### Data Type
-{ citation # }
+array
 
 ### Required
 no
