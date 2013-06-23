@@ -25,18 +25,28 @@ echo '	<table>
 			<tr>
 				<th>Case</a></th>
 				<th>Date</th>
-				<th>Number</th>
+				<th>Summary</th>
 			</tr>
 		</thead>
 		<tbody>';
 
 foreach ($opinions as $opinion)
 {
+	
+	/* 
+	 * Set aside the words that comprise the first 140 characters of the opinion text.
+	 */
+	$tmp = wordwrap($opinion->summary, 140, '<!-->')
+	$tmp = explode('<!-->', $tmp);
+	$opinion->summary = $tmp[0];
+	unset($tmp);
+	
 	echo '	<tr>
 				<td><a href="opinion.php?number=' . $opinion->number . ' ">' . $opinion->name . '</a></td>
 				<td>' . $opinion->date_published . '</td>
-				<td>' . $opinion->numer . '</td>
+				<td>' . $opinion->summary . '</td>
 			</tr>';
+	
 }
 
 echo '</tbody></table>';
