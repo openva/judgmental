@@ -1,5 +1,12 @@
 <?php
 
+$opinion_number = filter_input(INPUT_GET, 'opinion', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if (!isset($opinion_number))
+{
+	die('No opinion number was included in the URL.');
+}
+
 /*
  * Retrieve the requested opinion from its JSON file.
  */
