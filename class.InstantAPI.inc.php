@@ -90,6 +90,12 @@ class InstantAPI
 		
 		elseif (CACHE_TYPE == 'serialize')
 		{
+			
+			if (!file_exists(CACHE_DIRECTORY))
+			{
+				mkdir(CACHE_DIRECTORY);
+			}
+			
 			$result = file_put_contents(CACHE_DIRECTORY . 'cache', serialize($this->data));
 			if ($result === FALSE)
 			{
@@ -112,6 +118,11 @@ class InstantAPI
 		
 		elseif (CACHE_TYPE == 'json')
 		{
+			
+			if (!file_exists(CACHE_DIRECTORY))
+			{
+				mkdir(CACHE_DIRECTORY);
+			}
 			
 			/*
 			 * Iterate through all of the records and store each of them within the filesystem.
