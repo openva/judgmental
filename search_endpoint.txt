@@ -1,0 +1,8 @@
+Here's the endpoint:
+http://yqoffbyc.api.qbox.io/opinions/_search
+
+And a sample query:
+http://yqoffbyc.api.qbox.io/opinions/_search?pretty=true&q=judge
+
+And docs:
+https://qbox.io/dashboard/docs#document_management
