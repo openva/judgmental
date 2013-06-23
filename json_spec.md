@@ -2,6 +2,22 @@
 
 A description of the fields within the JSON file for each case.
 
+## TOC
+[Case Name](#case-name)
+[Case Number](#case-number)
+[Date Published](#date-published)
+[Court Name](#court-name)
+[Court Location](#court-location)
+[Author](#author)
+[Outcome](#outcome)
+[Parties](#parties)
+[Judges](#judges)
+[Attorneys](#attorneys)
+[Type of Case](#type-of-case)
+[Cited Laws](#cited-laws)
+[Cited Cases](#cited-cases)
+[Decision Text](#decision-text)
+
 
 ## Case Name
 
@@ -92,6 +108,24 @@ no
 While this is unstructured text, it ought to be a placename, and may be geocodable.
 
 
+## Author
+
+### Example
+Charles L. McCormick, III
+
+### Field Name
+author
+
+### Data Type
+string
+
+### Required
+no
+
+### Notes
+This is probably the name of one the judges who heard the case, but theoretically could be somebody else.
+
+
 ## Outcome
 
 ### Example
@@ -141,9 +175,6 @@ array
 
 ### Required
 no
-
-### Notes
-We need to store the names of the judges who heard the case, and we need to store the name of the author of the opinions? Should we turn this into an indexed array, in which we identify the judge who is the author? Or should we store the author's identity in a different field? Is it possible for the author of a decision to be somebody other than one of the judges who heard or ruled on the case?
 
 
 ## Attorneys
@@ -212,7 +243,7 @@ indexed array
 no
 
 ### Notes
-Some cases are cited repeatedly. See [Cited Laws](#Cited%20Laws) for the ramifications of this.
+Some cases are cited repeatedly. See [Cited Laws](#cited-laws) for the ramifications of this.
 
 
 ## Decision Text
