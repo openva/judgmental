@@ -214,6 +214,24 @@ string
 no
 
 
+## Key Sentence
+
+### Example
+Lee’s expert testimony was appropriate to aid the jury in putting this factual evidence into an appropriate context from which the jury could draw its own conclusions.
+
+### Field Name
+key_sentence
+
+### Data Type
+string
+
+### Required
+no
+
+### Notes
+This key sentence is extracted via NLP.
+
+
 ## Attorneys
 
 ### Example
