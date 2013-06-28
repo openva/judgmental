@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+  <meta charset="utf-8">
+    <style>
+    body {
+      font-family: arial,helvetica,verdana,sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+    }    
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    div#container {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    div.half {
+      float: left;
+      width: 50%;
+      padding: 12px;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+    }
+
+    </style>
+  </head>
+<body>        
+      <div id="container">  
+      <div style="text-align: center;">
+            <select>
+                  <option value="">Select...</option>                  
+            </select>
+      </div>
+      </div>
+      <div class="half">
+            <iframe src="" id="pdf"></iframe>
+      </div>
+      <div class="half">
+            <div id="converted"></div>
+      </div>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>
+
+      //Set of colors for syntax highlighting, one for each regex
+      var colors = ["#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3", "#A6D854", "#FFD92F", "#E5C494", "#B3B3B3"];
+
+      //Modified trim function to get rid of extraneous spacing, including <br> tags
+      String.prototype.trim = function () {
+            return this.replace(/([<]br\/?[>]|\s)/ig,' ').replace(/ +(?= )/g,'').replace(/^\s+|\s+$/g,'');
+      };
+
+      /* 
+       * To Title Case 2.0.1 – http://individed.com/code/to-title-case/
+       * Copyright © 2008–2012 David Gouch. Licensed under the MIT License. 
+       */
+
+      String.prototype.toTitleCase = function () {            
+        var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|vs?\.?|via)$/i;
+
+        return this.toLowerCase().replace(/([^\W_]+[^\s-]*) */g, function (match, p1, index, title) {
+          if (index > 0 && index + p1.length !== title.length &&
+            p1.search(smallWords) > -1 && title.charAt(index - 2) !== ":" && 
+            title.charAt(index - 1).search(/[^\s-]/) < 0) {
+            return match.toLowerCase();
+          }
+
+          if (p1.substr(1).search(/[A-Z]|\../) > -1) {
+            return match;
+          }
+
+          return match.charAt(0).toUpperCase() + match.substr(1);
+        });
+      };
+
+      /*
+      List of regexes to attempt to match against the converted opinion text.
+      Each regexp is an object that requires:
+            name: a label, like "Opinion Date"
+            expression: a regular expression to match what you want, can be first match or global
+            extractor: a function that further modifies the match.  For example, you can match the phrase "Record No. 123"
+                  and then get rid of the "Record No." at the beginning
+
+
+      Need to account for <br/> tags along with linebreaks.
+      */
+
+      var regexes = [            
+            {
+                  "name": "date_published", 
+                  "expression": /[A-Z][a-z]+(\s|[<]br\/?[>])+[0-9]{1,2}[,](\s|[<]br\/?[>])*[0-9]{4}/im,
+                  "extractor": function(matches) {
+                        return matches[0].trim();
+                  }
+            },
+            { 
+                  "name": "number",
+                  "expression": /record(\s|[<]br\/?[>])+no[.]?(\s|[<]br\/?[>])+[0-9]+/im,
+                  "extractor": function(matches) {
+                        return matches[0].trim().replace(/^record no[.]? ?/i,'');
+                  }
+            },
+            {
+                  "name": "author",
+                  "expression": /(per(\s|[<]br\/?[>])+curiam|justice(\s|[<]br\/?[>])+([a-z,.'-]+\s)+)/im,
+                  "extractor": function(matches) { 
+                        return matches[0].trim().replace(/^justice ?/i,'').toTitleCase();
+                  }
+            },                      
+            {
+                  "name": "lower_court",
+                  "expression": /from\s+the\s+(circuit\s+)?court\s+([a-z,-]+\s+)+/im,
+                  "extractor": function(matches) { 
+                        return matches[0].trim().replace(/^from\s+the\s+/i,'').toTitleCase();
+                  }
+            },                      
+            {
+                  "name": "lower_judge",
+                  "expression": /[<]br\/?[>]\s*([a-z.,'-]+\s+)+[a-z.,'-]+\s*,\s*judge/im,
+                  "extractor": function(matches) {
+                        return matches[0].trim().replace(/^[<]br\/?[>]\s*/im,'').replace(/,\s*judge/im,'');
+                  }
+            },                      
+            {
+                  "name": "judges",
+                  "expression": /\s*present[:][a-z,'.\s-]+([<]br\/[>])?[\w,'.\s-]+[<]br\/[>]\s*[<]br\/[>]/im,
+                  "extractor": function(matches) {
+                        return matches[0].trim().replace(/^\s*present[:]\s*/im,'').replace(/[<]br\/[>]\s*[<]br\/[>]$/im,'').replace(/[<]br\/[>]/,'');
+                  }
+            },            
+            {
+                  "name": "va_codes",
+                  "expression": /code(\s|[<]br\/?[>]|§)*([\d.:–-]+[\d:–-]([(]\w{1,3}[)])*)+(\s*through\s*[\d.:–-]+[\d:–-]([(]\w{1,3}[)])*)?/gim,
+                  "extractor": function(matches) {
+                        var len = matches.length;
+                        for (var i = 0; i < len; i++) {
+                              matches[i] = matches[i].replace(/[<]br\/?[>]/g,' ').replace(/^code(\s|§)*/i,'').trim();
+                        }
+                        return matches;
+                  }
+            },
+            {
+                  "name": "us_codes",
+                  "expression": /[0-9]+(\s|[<]br\/?[>])+u[.]s[.]c[.](\s|[<]br\/?[>]|§)*([\d.:–,-]+[\d:–-]([(]\w{1,3}[)])*)+?/gim,
+                  "extractor": function(matches) {
+                        var len = matches.length;
+                        for (var i = 0; i < len; i++) {
+                              matches[i] = matches[i].replace(/[<]br\/?[>]/g,' ').trim();
+                        }
+                        return matches;
+                  }
+            }
+      ];
+
+
+      $(document).ready(function() {
+
+            //First, populate the dropdown with a list of files from a JSON array
+            $.get("filenames.json",function(filenames) {
+
+                  var lenFiles = filenames.length;
+                  for (var i = 0; i < lenFiles; i++) {
+                        $("select").append('<option value="'+filenames[i]+'">'+filenames[i]+'</option>');
+                  }
+
+                  //Update when dropdown menu is changed        
+                  $("select").change(function() {
+
+                        //Empty results object to save matched results, for any given file will include the name and extractor()ed match
+                        var results = {};
+                        
+                        var file = $(this).val();
+                        if (file.length === 0) return true;
+
+                        //Change iframe src to pdf
+                        $("#pdf").attr("src","pdf/"+file+".pdf");
+
+                        //Get HTML of converted PDF
+                        $.get("html/"+file+".html",function(data) {
+                              
+                              //For each regex, highlight matches with associated background color
+                              var len = regexes.length;                        
+                              for (var i = 0; i < len; i++) {
+
+                                    //Replace the matches in the HTML with highlighted versions, and push matches to results object
+                                    data = data.replace(regexes[i].expression,function(match) {
+
+                                           //If there are no matches for that field yet, create an empty array
+                                          if (!results[regexes[i].name]) results[regexes[i].name] = [];
+                                                
+                                          //Push the match to the results array
+                                          results[regexes[i].name].push(match);
+                                                                  
+                                          //Add highlighting to match
+                                          return '<span title="'+regexes[i].name+'" style="background-color: '+colors[i % colors.length]+';">'+match+'</span>';
+
+                                    });
+
+                                    //Run the extractor function on each element in results
+                                    if (results[regexes[i].name]) {
+                                          results[regexes[i].name] = regexes[i].extractor(results[regexes[i].name]);
+                                    }
+                              }
+
+                              $("#converted").html(data);
+                              console.log(results);
+                        });
+                  });
+            },"json");
+
+      });
+      </script>
+</body>
+</html>
